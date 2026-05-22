@@ -3,9 +3,9 @@ import google.generativeai as genai
 
 st.title("VIP AI Agent")
 
-# Yahan apni API Key likh do (jo aapne Google AI Studio se li hai)
+# Hum secrets se key utha rahe hain
 api_key = st.secrets["GOOGLE_API_KEY"]
-genai.configure(api_key=my_api_key)
+genai.configure(api_key=api_key)
 
 model = genai.GenerativeModel('gemini-1.5-flash')
 
