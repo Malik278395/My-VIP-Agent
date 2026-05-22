@@ -1,19 +1,17 @@
 import streamlit as st
-import google.generativeai as genai
+from groq import Groq
 
-st.title("VIP AI Agent")
+st.title("VIP AI Agent (Groq Power)")
 
-# Secrets se key uthao
-api_key = st.secrets["GOOGLE_API_KEY"]
-genai.configure(api_key=api_key)
+client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
-# 100% sahi naam, "models/" prefix ke saath
-model = genai.GenerativeModel('models/gemini-1.5-flash')
-
-if prompt := st.chat_input("Kuch pucho..."):
+if prompt := st.chat_input("G Sir..."):
     st.chat_message("user").markdown(prompt)
-    try:
-        response = model.generate_content(prompt)
-        st.chat_message("assistant").markdown(response.text)
-    except Exception as e:
-        st.error(f"Error details: {e}")
+    
+    chat_completion = client.chat.completions.create(
+        messages=[{"role": "user", "content": prompt}],
+        model="llama3-70b-8192", # Ye bohot powerful model hai
+    )
+    
+    response = chat_completion.choices[0].message.content
+    st.chat_message("assistant").markdown(response)
