@@ -7,7 +7,8 @@ st.title("VIP AI Agent")
 api_key = st.secrets["GOOGLE_API_KEY"]
 genai.configure(api_key=api_key)
 
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-1.5-flash-8b')
+
 
 if prompt := st.chat_input("G Sir..."):
     st.chat_message("user").markdown(prompt)
